@@ -1,7 +1,6 @@
-/* eslint-disable */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { input } from './TaskFilter.module.css';
+import React from "react";
+import PropTypes from "prop-types";
+import { input } from "./TaskFilter.module.css";
 
 const TaskFilter = ({ value, onChangeFilter }) => (
   <input

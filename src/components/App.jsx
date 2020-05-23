@@ -1,9 +1,9 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import shortid from 'shortid';
 import TaskEditor from './TaskEditor/TaskEditor';
 import TaskList from './TaskList/TaskList';
 import TaskFilter from './TaskFilter/TaskFilter';
+import Priority from '../utils/Priority';
 
 const containerStyles = {
   maxWidth: 1200,
@@ -25,19 +25,19 @@ export default class App extends Component {
         id: shortid.generate(),
         text: 'My job',
         completed: false,
-        priority: 'low',
+        priority: Priority.LOW,
       },
       {
         id: shortid.generate(),
         text: 'hobby',
         completed: false,
-        priority: 'high',
+        priority: Priority.HIGH,
       },
       {
         id: shortid.generate(),
         text: 'rest',
         completed: false,
-        priority: 'normal',
+        priority: Priority.NORMAL,
       },
     ],
     filter: '',
@@ -80,6 +80,21 @@ export default class App extends Component {
       ),
     }));
   };
+
+  componentDidMount() {
+    const persistedTasks = localStorage.getItem('tasks');
+    if (persistedTasks) {
+      const tasks = JSON.parse(persistedTasks);
+      this.setState({ tasks });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const {tasks} = this.state
+    if (prevState.tasks !== tasks) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+  }
 
   render() {
     const { tasks, filter } = this.state;

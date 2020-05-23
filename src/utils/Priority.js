@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default Object.freeze({
   LOW: 'low',
   NORMAL: 'normal',

@@ -1,8 +1,10 @@
-/* eslint-disable */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Task.module.css';
+import PrioritySelector from '../PrioritySelector/PrioritySelector';
+import Priority from '../../utils/Priority';
+
+const options = Object.values(Priority);
 
 const Task = ({
   id,
@@ -21,16 +23,11 @@ const Task = ({
       <button type="button" onClick={onDeleteTask}>
         Delete
       </button>
-      <select
-        name="priority"
+      <PrioritySelector
+      options={options}
         value={priority}
         onChange={({ target: { value } }) => onUpdatePriority(id, value)}
-      >
-        <option value="low">Low</option>
-        <option value="normal">Normal</option>
-        <option value="high">High</option>
-      </select>
-
+      />
       <label>
         Completed:
         <input
@@ -44,11 +41,13 @@ const Task = ({
 );
 
 Task.protoTypes = {
+  id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   priopity: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
   onDeleteTask: PropTypes.func.isRequired,
   onUpdateCompleted: PropTypes.func.isRequired,
+  onUpdatePriority: PropTypes.func.isRequired,
 };
 
 export default Task;
